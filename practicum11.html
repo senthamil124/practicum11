@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LegalHive - 11. Form with Validation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:Arial, sans-serif; background:#efe6e8; color:#111; }
+.topbar{
+    background:white; padding:14px 28px;
+    display:flex; justify-content:space-between; align-items:center;
+}
+.logo{ font-size:24px; font-weight:900; color:#0a0a5a; }
+.logo span{ font-size:22px; }
+.nav{ display:flex; gap:24px; font-size:15px; font-weight:bold; }
+.nav a{ text-decoration:none; color:#111; }
+.nav a.light{ color:#777; font-weight:normal; }
+.right{ display:flex; gap:12px; align-items:center; }
+.right span{ font-size:14px; }
+.signout{
+    border:1.5px solid #0a0a5a; background:white; color:#111;
+    padding:7px 14px; border-radius:8px; cursor:pointer; font-size:14px;
+}
+.wrap{ max-width:1000px; margin:auto; padding:20px 20px 0; }
+h1{ text-align:center; font-size:36px; color:#0a0a5a; margin:18px 0 8px; }
+.sub{ text-align:center; color:#555; font-size:19px; margin-bottom:22px; }
+.sec{ text-align:center; font-size:24px; color:#0a0a5a; margin-bottom:20px; }
+.services{ display:flex; gap:16px; margin-bottom:28px; }
+.card{
+    background:white; flex:1; text-align:center;
+    padding:22px 12px; border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.07);
+}
+.card .icon{ font-size:32px; margin-bottom:10px; }
+.card h3{ font-size:19px; color:#0a0a5a; margin-bottom:8px; }
+.card p{ font-size:13px; color:#333; line-height:1.4; }
+.form-card{
+    background:white; border-radius:12px;
+    padding:26px 28px 22px; box-shadow:0 4px 14px rgba(0,0,0,0.07);
+}
+.form-card h2{ text-align:center; font-size:26px; color:#0a0a5a; margin-bottom:5px; }
+.form-card .fsub{ text-align:center; color:#666; font-size:14px; margin-bottom:20px; }
+.row{ display:flex; gap:16px; margin-bottom:14px; }
+.field{ flex:1; }
+.field.big{ flex:2; }
+label{ display:block; font-size:14px; font-weight:600; margin-bottom:6px; }
+input, select{
+    width:100%; padding:10px 12px; border:1px solid #ccc;
+    border-radius:8px; font-size:14px; background:white;
+}
+input::placeholder{ color:#777; }
+.btn{
+    display:block; width:100%; background:#0a0a5a; color:white;
+    border:none; padding:13px; border-radius:8px;
+    font-size:17px; font-weight:bold; cursor:pointer; margin-top:6px;
+}
+.btn:hover{ background:#1a1a7a; }
+#result{
+    margin-top:14px; padding:13px; border-radius:6px;
+    font-size:14px; line-height:1.6; display:none;
+}
+.error{ background:#ffecec; color:#c00; border:1px solid #ffaaaa; }
+.success{ background:#e6ffe6; color:#0a6a0a; border:1px solid #9ad99a; }
+.footer{ background:#0a0a5a; color:white; text-align:center; padding:14px; font-size:14px; margin-top:28px; }
+@media(max-width:700px){ .services{ flex-wrap:wrap; } .card{ flex:1 1 40%; } .row{ flex-direction:column; } .nav{ display:none; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="logo">⚖️ LegalHive</div>
+    <div class="nav"><a href="#">Dashboard</a><a href="#">Cases</a><a href="#">Lawyers</a><a class="light" href="#">Resources</a><a class="light" href="#">Support</a></div>
+    <div class="right"><span>👤 Profile</span><button class="signout">Sign Out</button></div>
+</div>
+
+<div class="wrap">
+    <h1>Welcome to LegalHive Legal Hub</h1>
+    <p class="sub">Manage Your Cases, Connect and Grow Together.</p>
+
+    <div class="sec">Our Legal Services</div>
+    <div class="services">
+        <div class="card"><div class="icon">⚖️</div><h3>Legal Advice</h3><p>Expert legal guidance and consultations</p></div>
+        <div class="card"><div class="icon">🔍</div><h3>Case Research</h3><p>Thorough research and case analysis</p></div>
+        <div class="card"><div class="icon">👨‍⚖️</div><h3>Find Lawyer</h3><p>Connect with verified legal professionals</p></div>
+        <div class="card"><div class="icon">📄</div><h3>Documentation</h3><p>Prepare and manage legal documents</p></div>
+    </div>
+
+    <!-- 11. FORM WITH VALIDATION -->
+    <div class="form-card">
+        <h2>Legal Registration Form</h2>
+        <div class="fsub">Enter Your Legal Details</div>
+
+        <div class="row">
+            <div class="field"><label>Client Name</label><input type="text" id="clientName" placeholder="Enter your full name"></div>
+            <div class="field"><label>Case Title</label><input type="text" id="caseTitle" placeholder="Enter case title"></div>
+            <div class="field"><label>Contact Number</label><input type="text" id="phone" placeholder="+1 (555) 000-0000"></div>
+        </div>
+
+        <div class="row">
+            <div class="field big"><label>Email Address</label><input type="text" id="email" placeholder="you@example.com"></div>
+            <div class="field"><label>Number of Cases</label><input type="text" id="caseCount" placeholder="e.g. 1"></div>
+        </div>
+
+        <div class="row">
+            <div class="field"><label>Case Category</label>
+                <select id="category">
+                    <option value="">Select category</option>
+                    <option>Civil Case</option>
+                    <option>Criminal Case</option>
+                    <option>Family Case</option>
+                    <option>Property Case</option>
+                </select>
+            </div>
+            <div class="field"><label>Case Description</label><input type="text" id="desc" placeholder="Describe your case details..."></div>
+        </div>
+
+        <!-- CHECKLIST: Submit button (onclick) -->
+        <button class="btn" onclick="validateForm()">Submit Registration</button>
+        <div id="result"></div>
+    </div>
+</div>
+
+<div class="footer">© 2026 LegalHive Legal Hub. All Rights Reserved.</div>
+
+<script>
+// CHECKLIST: JS function (process & display)
+function validateForm(){
+    var name = document.getElementById("clientName").value.trim();
+    var title = document.getElementById("caseTitle").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var phone = document.getElementById("phone").value.trim();
+    var category = document.getElementById("category").value;
+    var count = document.getElementById("caseCount").value.trim();
+    var desc = document.getElementById("desc").value.trim();
+    var result = document.getElementById("result");
+    result.style.display = "block";
+
+    // CHECKLIST: if/else checks + Check if the box is empty
+    if(name=="" || title=="" || email=="" || phone=="" || category=="" || count=="" || desc==""){
+        result.className = "error";
+        result.innerHTML = "❌ Please fill all the fields! Box empty irukka koodathu.";
+        return;
+    }
+    else if(email.includes("@")==false || email.includes(".")==false){
+        result.className = "error";
+        result.innerHTML = "❌ Please enter a valid Email Address!";
+        return;
+    }
+    // CHECKLIST: Only numbers validation - Phone (numbers mattum)
+    else if(isNaN(phone.replace(/[^0-9]/g,"")) || phone.replace(/[^0-9]/g,"").length != 10){
+        result.className = "error";
+        result.innerHTML = "❌ Contact Number must be 10 digits - Only numbers allowed!";
+        return;
+    }
+    // CHECKLIST: Only numbers validation - Case Count
+    else if(isNaN(count)){
+        result.className = "error";
+        result.innerHTML = "❌ Number of Cases must be Only Numbers!";
+        return;
+    }
+    else{
+        result.className = "success";
+        result.innerHTML = "✅ Registration Successful!<br><b>Client:</b> "+name+"<br><b>Case:</b> "+title+"<br><b>Email:</b> "+email+"<br><b>Phone:</b> "+phone+"<br><b>Category:</b> "+category+"<br><b>No. of Cases:</b> "+count+"<br><b>Description:</b> "+desc;
+    }
+}
+</script>
+
+</body>
+</html>
